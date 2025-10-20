@@ -7,18 +7,33 @@ class App {
   async run() {
     const inputString = await Console.readLineAsync('덧셈할 문자열을 입력해 주세요.\n');
 
-    Console.print(`결과 : ${inputString}`);
+    try {
+      const result = this.calculate(inputString)
+      Console.print(`결과 : ${result}`);
+    } catch(error) {
+      throw error;
+    }
   }
 
-  parseInput(input) {
-    if (input.startsWith(CUSTOM_DELIMITER_PREFIX)) {
-      const delimiterIndex = input.indexOf('\\\\n');
-      const delimiter = input.substring(2,delimiterIndex);
-      const numbersString = input.substring(delimiterIndex+2);
+  calculate(inputString) {
+    if (inputString === '') {
+      return 0;
+    }
+
+    const {delimiter, numbersString} = this.parseInput(inputString);
+    const numbersArray = this.extractNumbers(numbersString, delimiter);
+    return numbersArray.reduce((acc, num) => acc + num, 0);
+  }
+
+  parseInput(inputString) {
+    if (inputString.startsWith(CUSTOM_DELIMITER_PREFIX)) {
+      const delimiterIndex = inputString.indexOf('\\\\n');
+      const delimiter = inputString.substring(2,delimiterIndex);
+      const numbersString = inputString.substring(delimiterIndex+2);
       return { delimiter: this.escapeRegex(delimiter), numbersString }
     }
 
-    return { delimiter: DEFAULT_DELIMITER, numbersString: input };
+    return { delimiter: DEFAULT_DELIMITER, numbersString: inputString };
   }
 
   escapeRegex = (str) => str.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&');
