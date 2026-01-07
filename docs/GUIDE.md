@@ -57,4 +57,13 @@
 
 ## 폴더구조
 
-Clean Architecture에 기반한 폴더구조 또는 FSD에 기반한 폴더구조로 코드를 역할별로 분류하여 작성
+MVC 패턴에 기반한 폴더구조로 코드를 역할별로 분류하여 작성
+
+```
+src/
+├── models/       # Model: 비즈니스 로직 및 데이터 처리
+├── views/        # View: 입출력 담당
+├── controllers/  # Controller: Model과 View를 연결
+├── App.js        # 애플리케이션 진입점
+└── index.js      # 메인 실행 파일
+```
