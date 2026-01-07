@@ -20,4 +20,12 @@ describe('Calculator', () => {
   test('쉼표로 구분된 세 숫자의 합을 반환한다', () => {
     expect(Calculator.calculate('1,2,3')).toBe(6);
   });
+
+  test('콜론으로 구분된 숫자의 합을 반환한다', () => {
+    expect(Calculator.calculate('1:2:3')).toBe(6);
+  });
+
+  test('쉼표와 콜론을 혼합 사용할 수 있다', () => {
+    expect(Calculator.calculate('1,2:3')).toBe(6);
+  });
 });
